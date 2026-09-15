@@ -1,0 +1,18 @@
+{
+    "id": "sneaky-server-groups",
+    "name": "Sneaky Server Groups",
+    "author": "Team Sneakymouse",
+    "version": "1.0.1",
+    "description": "Organize accessible servers into panel-admin-managed groups on the app server list.",
+    "category": "plugin",
+    "url": "https://github.com/Team-Sneakymouse/Sneaky-Server-Groups",
+    "update_url": null,
+    "namespace": "TeamSneakymouse\\SneakyServerGroups",
+    "class": "SneakyServerGroupsPlugin",
+    "panels": [
+        "admin",
+        "app"
+    ],
+    "panel_version": "^1.0.0-beta38",
+    "composer_packages": null
+}
