@@ -1,10 +1,5 @@
-# AGENTS.md
+# Agent guidance
 
-## Repo-specific rules
-
-- **Plugin-only, no fork.** Don't patch Pelican panel or Wings; extend via plugin hooks only (ADR 0002). If impossible, document it and ask.
-- **Membership lives in the plugin tables** (`sneaky_server_group_memberships`), never in deployment tags or Docker labels (ADR 0001).
-- **Migrations are append-only.** Never edit `database/migrations/001_*`; add numbered files after it. Keep the `Schema::hasTable` guards (`SneakyServerGroupsServiceProvider`, `SneakyServerGroupsPlugin`) so an unmigrated install does nothing instead of crashing.
-- **One group per server.** The migration enforces it with a unique index on `server_id`; preserve the invariant in the settings form save too.
-- **`orderQueryUsing` interpolates table names into raw SQL**; keep columns table-qualified when editing it.
-- **Keep the plugin `id` (`sneaky-server-groups`) equal to the folder name** and bump `plugin.json` `version` on change.
+- Before changing grouping behavior, read [CONTEXT.md](CONTEXT.md), [membership ownership](docs/adr/0001-plugin-owned-server-group-membership.md), and [plugin extension boundaries](docs/adr/0002-keep-server-groups-plugin-only.md).
+- Keep migrations append-only: add a new numbered file in `database/migrations` for schema changes, preserving previously shipped migrations.
+- Preserve the table-existence guards in `SneakyServerGroupsServiceProvider` and `SneakyServerGroupsPlugin` so an installation whose migrations have not run remains safe to load and configure.
