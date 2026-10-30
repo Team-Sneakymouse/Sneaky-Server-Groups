@@ -55,6 +55,7 @@ class SneakyServerGroupsServiceProvider extends ServiceProvider
             })
             ->collapsible()
             ->orderQueryUsing(function (Builder $query, string $direction): Builder {
+                // Qualify the outer server ID so the subqueries correlate with the server being sorted.
                 $serverIdColumn = Server::query()->qualifyColumn('id');
                 $groupSortSub = "(SELECT ssg.sort FROM sneaky_server_group_memberships ssgm JOIN sneaky_server_groups ssg ON ssg.id = ssgm.server_group_id WHERE ssgm.server_id = {$serverIdColumn} LIMIT 1)";
                 $positionSub = "(SELECT ssgm.position FROM sneaky_server_group_memberships ssgm WHERE ssgm.server_id = {$serverIdColumn} LIMIT 1)";
